@@ -20,7 +20,7 @@ class App < Sinatra::Base
   set :static, true
   set :root, File.dirname(__FILE__)
   set :public_folder, File.dirname(__FILE__) + '/target'
-  set :protection, :except => [:frame_options, :http_origin]
+  disable :protection
 
   configure :development, :test do
     set :port, 8081
