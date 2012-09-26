@@ -29,6 +29,11 @@ describe 'The XFD Server App' do
     last_response.should be_ok
   end
 
+  it "should find a version if you ask via JSONP" do
+    get '/version?jsonp=asdf'
+    last_response.should match(/asdf\(/)
+  end
+
   def remove_jsonp_function(string)
     string.gsub(/^googoo\(/, '').gsub(/\)$/, '')
   end

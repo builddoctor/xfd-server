@@ -41,21 +41,30 @@ class App < Sinatra::Base
     'Hello.  Not much to see here.'
   end
 
-  def render_version
+  JSONP_CALLBACK = 'jsonp'
+
+  def choose_content_type(params)
+    params[JSONP_CALLBACK] ? :js : :json
+  end
+
+  def render_version(params)
+
+    callback = params[JSONP_CALLBACK]
     version = String(File.read(File.join(File.dirname(__FILE__), 'VERSION'))).strip
-    "{\"version\": \"#{version}\"}"
+    json="{\"version\": \"#{version}\"}"
+
+    callback ? response = "#{callback}(#{json})" : response = json
+    response
   end
 
   get '/version' do
-    content_type :json
-    render_version()
+    content_type choose_content_type(params)
+    render_version(params)
   end
 
-
-
   get '/version?' do
-    content_type :json
-    render_version()
+    content_type choose_content_type(params)
+    render_version(params)
   end
 
 # Example data for all projects.
