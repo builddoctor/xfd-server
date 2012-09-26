@@ -11,23 +11,28 @@ describe 'The XFD Server App' do
   include Rack::Test::Methods
 
   def app
-    Sinatra::Application
+    App
   end
 
-  it "should see the index page without mch" do
+  it "should see the index page" do
     get '/'
-    last_response.should be_ok
-    last_response.body.should match("Hello.")
+    last_response.body.should match("^Hello.")
   end
 
   it "should find a version" do
     get '/version'
-    JSON.parse(last_response.body)['version'].should == '1000-local'
+    JSON.parse(last_response.body)['version'].should == File.read(File.join(File.dirname(__FILE__),'..', 'VERSION')).chomp
+  end
+
+  it "should find a version if you've misunderstood params" do
+    get '/version'
+    last_response.should be_ok
   end
 
   def remove_jsonp_function(string)
     string.gsub(/^googoo\(/, '').gsub(/\)$/, '')
   end
+
   it "should get a json hash if you give it a /hudson URL" do
     get '/hudson/api/json?jsonp=googoo'
     JSON.parse(remove_jsonp_function(last_response.body))['jobs'].first['url'].should == 'http://example.org/job/Broken%20Build/'

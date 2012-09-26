@@ -41,10 +41,21 @@ class App < Sinatra::Base
     'Hello.  Not much to see here.'
   end
 
-  get '/version' do
-    content_type :json
+  def render_version
     version = String(File.read(File.join(File.dirname(__FILE__), 'VERSION'))).strip
     "{\"version\": \"#{version}\"}"
+  end
+
+  get '/version' do
+    content_type :json
+    render_version()
+  end
+
+
+
+  get '/version?' do
+    content_type :json
+    render_version()
   end
 
 # Example data for all projects.
