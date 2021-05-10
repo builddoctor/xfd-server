@@ -10,6 +10,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rake (13.0.3)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -37,8 +38,12 @@ PLATFORMS
 DEPENDENCIES
   json
   rack-test
+  rake
   rspec
   sinatra
+
+RUBY VERSION
+   ruby 2.7.2p137
 
 BUNDLED WITH
    2.1.4
