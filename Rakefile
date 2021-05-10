@@ -4,3 +4,5 @@ RSpec::Core::RakeTask.new do |t|
   t.pattern = "./spec/**/*_spec.rb" # don't need this, it's default.
 end
 
+task :default => :spec
+

@@ -1,7 +1,7 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
-ruby '2.4.0'
+ruby '2.7.3'
 
 gem "json"
 gem "sinatra"
